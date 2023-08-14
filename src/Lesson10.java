@@ -23,12 +23,31 @@ public class Lesson10 {
      */
 
     public static void main(String[] args) {
-
+        printRhombus(string);
     }
 
     public static String string = scanner().next();
 
     public static void printRhombus(String s) {
+        if (s.length() < 50) {
+            for (int i = 0; i < s.length(); i++) {
+                for (int j = i; j < s.length(); j++) {
+                    System.out.print(' ');
+                }
+                for (int k = 0; k < i; k++) {
+                    System.out.print(s.charAt(k));
+                }
+                System.out.println();
+            }
+            for (int i = 0; i < s.length(); i++) {
+                for (int j = i; j < s.length(); j++) {
+                    System.out.print(s.charAt(j));
+                }
+                System.out.println();
+            }
+        } else {
+            System.out.println("Превышена максимальная длина слова");
+        }
 
     }
 
