@@ -30,7 +30,6 @@ public class Lesson12 {
 
     public static void main(String[] args) {
         searchSmileyFace(strings);
-        System.out.println(a(text));
     }
 
     public static String text = ";---------[[[[[[[[ :) :-)] :-()";
