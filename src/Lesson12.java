@@ -1,3 +1,6 @@
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Lesson12 {
     /**
      * Напишите программу, которая посчитает количество
@@ -26,6 +29,33 @@ public class Lesson12 {
      */
 
     public static void main(String[] args) {
-
+        searchSmileyFace(strings);
+        System.out.println(a(text));
     }
+
+    public static String text = ";---------[[[[[[[[ :) :-)] :-()";
+    public static String pattern = "^[;|:]{1}-{0,}((\\({1,}|\\){1,})|(\\[{1,}|]{1,}))";
+    public static String string;
+    public static String[] strings = text.split(" ");
+
+
+    public static void searchSmileyFace(String[] strings) {
+        int counter = 0;
+        for (String string : strings) {
+            if (a(string).length() == string.length()) {
+                counter++;
+            }
+        }
+        System.out.println(counter);
+    }
+
+    public static String a(String string) {
+        Pattern pattern1 = Pattern.compile(pattern);
+        Matcher matcher = pattern1.matcher(string);
+        while (matcher.find()) {
+            return string.substring(matcher.start(), matcher.end());
+        }
+        return "";
+    }
+
 }

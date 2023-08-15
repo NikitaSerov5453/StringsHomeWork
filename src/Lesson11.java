@@ -29,6 +29,7 @@ public class Lesson11 {
     public static String postfix = "){3,}";
 
     public static void wordMatching(String s) {
+        s = s.toLowerCase();
         int lengthSubstring = 1;
         int length = s.length();
         int n;
