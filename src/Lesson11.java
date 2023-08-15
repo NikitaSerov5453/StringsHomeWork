@@ -1,4 +1,3 @@
-import java.util.Objects;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,49 +18,51 @@ public class Lesson11 {
      *  Напишите программу, которая по данному слову (введеного с клавиатуры) определит, принадлежит ли оно этому языку.
      */
 
-    public static void main(String[] args) {//(?<letter>abc){3,}
-        b(string);
+    public static void main(String[] args) {
+        wordMatching(string);
     }
 
     public static String string = scanner().next();
     public static String substring;
-    public static String pattern = "[d-zD-Z\\d]+";
+    public static String pattern = "[^a-cA-C]+";//
+    public static String prefix = "(?<letter>";
+    public static String postfix = "){3,}";
 
-    public static void b(String s) {
+    public static void wordMatching(String s) {
         int lengthSubstring = 1;
         int length = s.length();
         int n;
-        int counter = 1;
-        String s1;
         Pattern pattern1 = Pattern.compile(pattern);
         Matcher matcher = pattern1.matcher(s);
-        if (matcher.find()) {
-            System.out.println("Не пренадлежит");
-            return;
-        }
-        if (s.contains("bb")) {
-            System.out.println("Не пренадлежит");
-            return;
-        }
-        for (int i = 0; i < length; i++) {
-            length = s.length() - lengthSubstring + 1;
-            for (int j = 0; j < length; j++) {
-                n = j;
-                s1 = substring;
-                substring = s.substring(j, n + lengthSubstring);
-                if (Objects.equals(substring, s1)) {
-                    counter++;
-                } else {
-                    counter = 1;
-                }
-                if (counter == 3) {
-                    System.out.println("Не пренадлежит");
-                    return;
-                }
+        if (!matcher.find()) {
+            if (s.contains("bb")) {
+                System.out.println("Не пренадлежит");
+                return;
             }
-            lengthSubstring++;
+
+            for (int i = 0; i < length; i++) {
+                length = s.length() - lengthSubstring + 1;
+                for (int j = 0; j < length; j++) {
+                    n = j;
+                    substring = s.substring(j, n + lengthSubstring);
+                    if (checkingRepetitionSubstrings(substring, s)) {
+                        System.out.println("Не пренадлежит");
+                        return;
+                    }
+                }
+                lengthSubstring++;
+            }
+            System.out.println("Пренадлежит");
+
+        } else {
+            System.out.println("Не пренадлежит");
         }
-        System.out.println("Пренадлежит");
+    }
+
+    public static boolean checkingRepetitionSubstrings(String pattern, String string) {
+        Pattern pattern1 = Pattern.compile(prefix + pattern + postfix);
+        Matcher matcher = pattern1.matcher(string);
+        return matcher.find();
     }
 
     public static Scanner scanner() {
